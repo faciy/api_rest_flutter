@@ -80,11 +80,19 @@ class _LoginViewState extends State<LoginView> {
             ElevatedButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  print('Ouiii');
+                  loginController.login();
                 }
               },
               child: Text('Login'),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Obx(
+              () => Container(
+                child: Text(loginController.loading.value ? 'loading' : 'nada'),
+              ),
+            )
           ],
         ),
       ),
