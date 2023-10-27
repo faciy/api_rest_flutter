@@ -1,5 +1,9 @@
+import 'package:apirest/data/models/login/user_model.dart';
 import 'package:apirest/data/repository/login_repository/login_repository.dart';
+import 'package:apirest/res/routes/routes.dart';
+import 'package:apirest/res/routes/routes_name.dart';
 import 'package:apirest/utils/utils.dart';
+import 'package:apirest/view_models/controller/user_peferences/user_preferences_view_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +16,8 @@ class LoginViewModal extends GetxController {
   final emailFocusNode = FocusNode().obs;
   final passwordFocusNode = FocusNode().obs;
 
+  UserPreferencesViewModal userPreferences = UserPreferencesViewModal();
+
   RxBool loading = false.obs;
 
   void login() {
@@ -22,6 +28,11 @@ class LoginViewModal extends GetxController {
     };
 
     _api.loginApi(data).then((value) {
+      UserModel userModel = UserModel(token: value['token'], isLogin: true);
+
+      userPreferences.saveUser(userModel).then((value) {
+        Get.toNamed(RouteName.Home);
+      }).onError((error, stackTrace) {});
       Utils.snakBar('Login', 'Successfuly');
       loading.value = false;
     }).onError((error, stackTrace) {

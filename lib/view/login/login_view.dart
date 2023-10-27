@@ -1,5 +1,5 @@
 import 'package:apirest/utils/utils.dart';
-import 'package:apirest/view_models/controller/login_view_model.dart';
+import 'package:apirest/view_models/controller/login/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
